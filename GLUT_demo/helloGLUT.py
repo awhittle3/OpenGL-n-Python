@@ -13,7 +13,7 @@ def main():
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
 
     # Create a window, setting its title
-    glutCreateWindow('Hello GLUT')
+    glutCreateWindow(b'Hello GLUT')
 
     # Set the display callback.  You can set other callbacks for keyboard and
     # mouse events.

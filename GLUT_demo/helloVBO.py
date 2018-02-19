@@ -25,7 +25,7 @@ def main():
     glutInitDisplayMode(GLUT_3_2_CORE_PROFILE | GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
     glutInitWindowSize(720, 480)
 
-    glutCreateWindow('Modern Hello Triangle with VBO')
+    glutCreateWindow(b'Modern Hello Triangle with VBO')
 
     glutDisplayFunc(display)
     glutKeyboardFunc(onKeyEvent)

@@ -8,7 +8,7 @@ def main():
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
     glutInitWindowSize(720, 480)
 
-    glutCreateWindow('Hello Triangle')
+    glutCreateWindow(b'Hello Triangle')
 
     glutDisplayFunc(onDisplay)
     glutKeyboardFunc(onKeyEvent)
