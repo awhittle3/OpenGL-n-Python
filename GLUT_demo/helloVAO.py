@@ -20,6 +20,13 @@ vertexPositions = [
 ]
 vertexComponents = 4
 
+vertexColours = [
+    0.0, 0.8, 0.0, 1.0,
+    0.0, 0.5, 0.0, 1.0,
+    0.0, 0.2, 0.0, 1.0,
+]
+colourComponents = 4
+
 indices = [
     0,1,2
 ]
@@ -57,9 +64,9 @@ def initialize_program():
     glBindVertexArray(vertexArrayObject)
     shaderProgram = compileProgram(
         compileShader(
-            loadFile('simple.vert'), GL_VERTEX_SHADER),
+            loadFile('simpleVAO.vert'), GL_VERTEX_SHADER),
         compileShader(
-            loadFile('simple.frag'), GL_FRAGMENT_SHADER)
+            loadFile('simpleVAO.frag'), GL_FRAGMENT_SHADER)
     )
     glBindVertexArray(0)
 
@@ -84,6 +91,15 @@ def initialize_vertex_buffer():
         array_type(*vertexPositions), GL_STATIC_DRAW
     )
 
+    global colourBufferObject
+    colourBufferObject = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, colourBufferObject)
+    array_type = (GLfloat * len(vertexColours))
+    glBufferData(
+        GL_ARRAY_BUFFER, len(vertexColours) * sizeOfFloat,
+        array_type(*vertexColours), GL_STATIC_DRAW
+    )
+
 def initialize_index_buffer():
     global indexBufferObject
     indexBufferObject = glGenBuffers(1)
@@ -100,6 +116,10 @@ def setup_attributes():
     positionLocation= glGetAttribLocation(shaderProgram, b'position')
     glEnableVertexAttribArray(positionLocation)
     glVertexAttribPointer(positionLocation, vertexComponents, GL_FLOAT, False, 0, None)
+    glBindBuffer(GL_ARRAY_BUFFER, colourBufferObject)
+    colourLocation = glGetAttribLocation(shaderProgram, b'colour_in')
+    glEnableVertexAttribArray(colourLocation)
+    glVertexAttribPointer(colourLocation, colourComponents, GL_FLOAT, False, 0, None)
     glBindVertexArray(0)
     glBindBuffer(GL_ARRAY_BUFFER, 0)
 
