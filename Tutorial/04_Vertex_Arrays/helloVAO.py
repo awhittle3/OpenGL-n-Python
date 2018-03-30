@@ -77,9 +77,6 @@ def initialize_vertex_array():
     initialize_vertex_buffer()
     initialize_index_buffer()
     glBindVertexArray(0)
-    glBindBuffer(GL_ARRAY_BUFFER, 0)
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0)
-
 
 def initialize_vertex_buffer():
     global positionBufferObject
