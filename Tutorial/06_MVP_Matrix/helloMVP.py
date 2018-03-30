@@ -108,6 +108,13 @@ def main():
     global projMatrix
     global viewMatrix
 
+    global fieldOfView
+    global nearClipPlane
+    global farClipPlane
+
+    fieldOfView = 60.0
+    nearClipPlane = 0.1
+    farClipPlane = 100
     screenWidth = 720
     screenHeight = 480
 
@@ -118,6 +125,7 @@ def main():
 
     glutCreateWindow(b'Hello MVP Matrix')
 
+    glutReshapeFunc(reshapeWindow)
     glutDisplayFunc(display)
     glutKeyboardFunc(onKeyEvent)
 
@@ -145,7 +153,7 @@ def main():
     triangle = GameObject(vertexPositions, vertexColours, indices)
     triangleShader = ShaderProgram([triangle], 'simpleMVP.vert', 'simpleMVP.frag')
 
-    projMatrix = perspective(60.0, float(screenWidth)/float(screenHeight), 0.1, 100.0)
+    projMatrix = perspective(fieldOfView, float(screenWidth)/float(screenHeight), nearClipPlane, farClipPlane)
     viewMatrix = lookAt(np.array([0.0,0.0,1.0]), np.array([0.0,0.0,0.0]), np.array([0.0,1.0,0.0]))
 
     # Run the GLUT main loop until the user closes the window.
@@ -162,6 +170,13 @@ def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     triangleShader.drawGameObjects(viewMatrix, projMatrix)
     glutSwapBuffers()
+
+def reshapeWindow(width, height):
+    global projMatrix
+    if height == 0:
+        height = 1
+    glViewport(0, 0, width, height)
+    projMatrix = perspective(fieldOfView, float(width)/float(height), nearClipPlane, farClipPlane)
 
 # https://butterflyofdream.wordpress.com/2016/04/27/pyopengl-keyboard-wont-respond/
 def onKeyEvent(bkey, x, y):
