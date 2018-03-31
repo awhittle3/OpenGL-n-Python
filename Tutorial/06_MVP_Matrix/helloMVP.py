@@ -93,12 +93,18 @@ class ShaderProgram:
             uniformLocation = glGetUniformLocation(self.shaderProgram, b'model')
             if uniformLocation != -1:
                 glUniformMatrix4fv(uniformLocation, 1, False, go.model.tolist())
+            else:
+                print("Error: model location not found")
             uniformLocation = glGetUniformLocation(self.shaderProgram, b'view')
             if uniformLocation != -1:
                 glUniformMatrix4fv(uniformLocation, 1, False, view.tolist())
+            else:
+                print("Error: view location not found")
             uniformLocation = glGetUniformLocation(self.shaderProgram, b'proj')
             if uniformLocation != -1:
                 glUniformMatrix4fv(uniformLocation, 1, False, proj.tolist())
+            else:
+                print("Error: proj location not found")
             glDrawElements(GL_TRIANGLES, len(go.indices), GL_UNSIGNED_SHORT, None)
             glBindVertexArray(0)
         glUseProgram(0)
@@ -114,7 +120,7 @@ def main():
 
     fieldOfView = 60.0
     nearClipPlane = 0.1
-    farClipPlane = 100
+    farClipPlane = 100.0
     screenWidth = 720
     screenHeight = 480
 
