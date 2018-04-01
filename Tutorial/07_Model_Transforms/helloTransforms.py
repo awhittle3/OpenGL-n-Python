@@ -288,7 +288,7 @@ def lookAt(eye, center, up):
     return view
 
 # https://stackoverflow.com/questions/21030391/how-to-normalize-an-array-in-numpy
-def normalized(a, axis=-1, order=1):
+def normalized(a, axis=-1, order=2):
     l2 = np.atleast_1d(np.linalg.norm(a, order, axis))
     l2[l2==0] = 1
     return a / np.expand_dims(l2, axis)
